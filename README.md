@@ -1,34 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Curso de Typescript: Typescript y React
 
-## Getting Started
+- Tutor: Jonathan Alvarez
+- Plataforma: Platzi
+- Tercer curso se la serie de TS
+<hr />
 
-First, run the development server:
+## Módulo 1: Introduccion
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<hr />
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Módulo 2: Tipado en React
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Leccion 4: Formas de definir un componente
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Existen por lo menos 6 formas de definir componentes con React y TS, pero vemos 4 de ellas:
 
-## Learn More
+### Definición implícita
 
-To learn more about Next.js, take a look at the following resources:
+<pre>
+    <code>
+        export const RandomFox = () => {
+            return <img></img>;
+        };
+    </code>
+</pre>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Definición explicita
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<blockquote>Esta es la forma que se recomienda usar en el proyecto</blockquote>
+<pre>
+    <code>
+        export const RandomFox = (): JSX.Element => {
+            return <img></img>;
+        };
+    </code>
+</pre>
 
-## Deploy on Vercel
+### Importando el tipo FunctionComponent de React
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<pre>
+    <code>
+        import type { FunctionComponent } from 'react';
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+        export const RandomFox = (): FunctionComponent => {
+            return <img></img>;
+        };
+    </code>
+</pre>
+
+<blockquote>Es importante agregar 'type' cuando se estan importando tipos</blockquote>
+
+### Importando el tipo FC de React
+
+<pre>
+    <code>
+        import type { FC } from 'react';
+
+        export const RandomFox: FC = () => {
+            return <img></img>;
+        };
+    </code>
+</pre>
+
+<blockquote>Es importante agregar 'type' cuando se estan importando tipos</blockquote>
