@@ -1,7 +1,10 @@
-const random = () => Math.floor(Math.random() * 123 + 1);
+type props = {
+  image: string;
+  alt: string;
+};
 
-export const RandomFox = (): JSX.Element => {
-  const image: string = `https://randomfox.ca/images/${random()}.jpg`;
-
-  return <img className="rounded" width={320} height="auto" src={image}></img>;
+export const RandomFox = ({ image, alt }: props): JSX.Element => {
+  return (
+    <img className="rounded" width={320} height="auto" src={image} alt={alt} />
+  );
 };

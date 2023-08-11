@@ -1,0 +1,22 @@
+.resizable {
+  width: 120px;
+  height: 80px;
+  border: 1px solid black;
+  position: absolute;
+
+  .resizer {
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid red;
+    // border: none;
+  }
+
+  .top-resizer {
+    cursor: row-resize;
+    width: 12px;
+    height: 6px;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

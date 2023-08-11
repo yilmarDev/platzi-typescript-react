@@ -7,6 +7,8 @@
 
 ## Módulo 1: Introduccion
 
+Curso para aprender las mejores formas de implementar TypeScript con React
+
 <hr />
 
 # Módulo 2: Tipado en React
@@ -17,49 +19,60 @@ Existen por lo menos 6 formas de definir componentes con React y TS, pero vemos 
 
 ### Definición implícita
 
-<pre>
-    <code>
-        export const RandomFox = () => {
-            return <img></img>;
-        };
-    </code>
-</pre>
+```
+    export const RandomFox = () => {
+        return <img></img>;
+    };
+```
 
 ### Definición explicita
 
 <blockquote>Esta es la forma que se recomienda usar en el proyecto</blockquote>
-<pre>
-    <code>
-        export const RandomFox = (): JSX.Element => {
-            return <img></img>;
-        };
-    </code>
-</pre>
+
+```
+    export const RandomFox = (): JSX.Element => {
+        return <img></img>;
+    };
+```
 
 ### Importando el tipo FunctionComponent de React
 
-<pre>
-    <code>
-        import type { FunctionComponent } from 'react';
+```
+    import type { FunctionComponent } from 'react';
 
-        export const RandomFox = (): FunctionComponent => {
-            return <img></img>;
-        };
-    </code>
-</pre>
+    export const RandomFox = (): FunctionComponent => {
+        return <img></img>;
+    };
+```
 
 <blockquote>Es importante agregar 'type' cuando se estan importando tipos</blockquote>
 
 ### Importando el tipo FC de React
 
-<pre>
-    <code>
-        import type { FC } from 'react';
+```
+    import type { FC } from 'react';
 
-        export const RandomFox: FC = () => {
-            return <img></img>;
-        };
-    </code>
-</pre>
+    export const RandomFox: FC = () => {
+        return <img></img>;
+    };
+```
 
 <blockquote>Es importante agregar 'type' cuando se estan importando tipos</blockquote>
+
+## Lección 5: Props y Children
+
+Las props son simplemente un objeto al cual se le da una definición como a cualquier objeto de TS. Para esto basta con definir un objeto, listanto las propiedades que deben ser enviadas al momento de usar el componente.
+
+```
+    type props = {
+        image: string;
+        alt: string;
+    };
+
+    export const RandomFox = ({ image, alt }: props): JSX.Element => {
+        return (
+            <img className="rounded" width={320} height="auto" src={image} alt={alt} />
+        );
+    };
+
+```
