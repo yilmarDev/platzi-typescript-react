@@ -1,9 +1,24 @@
-import Image from 'next/image';
+'use client';
+import { useState } from 'react';
 import { RandomFox } from '@/components/RandomFox';
 
+const random = () => Math.floor(Math.random() * 123 + 1);
+const generateId = () => new Date().getTime().toString();
+
+type ImageItem = Array<{
+  id: string;
+  url: string;
+}>;
+
 export default function Home() {
-  const random = () => Math.floor(Math.random() * 123 + 1);
-  const image: string = `https://randomfox.ca/images/${random()}.jpg`;
+  const [images, setImages] = useState<ImageItem>([
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: generateId(), url: `https://randomfox.ca/images/${random()}.jpg` },
+  ]);
+
+  console.log(images);
 
   return (
     <>
@@ -20,7 +35,13 @@ export default function Home() {
           <h1 className="text-3xl font-bold underline">
             Hello Platzi and TypeScript
           </h1>
-          <RandomFox image={image} alt="Random fox to display" />
+
+          {images.map(({ id, url }) => (
+            <div key={id} className="p-4">
+              <RandomFox image={url} alt="Random fox to display" />
+            </div>
+          ))}
+
           <footer>By YilmarDev</footer>
         </main>
       </body>

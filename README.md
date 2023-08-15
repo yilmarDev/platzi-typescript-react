@@ -76,3 +76,68 @@ Las props son simplemente un objeto al cual se le da una definición como a cual
     };
 
 ```
+
+## Leccion 6: Estado con primitivos
+
+Al utilizar genñericos podemos tipar el tipo de variables que pueden usar los hooks de react, por ejemplo useState.
+
+## Genéricos:
+
+Los genéricos en TypeScript son una característica poderosa que te permite escribir funciones, clases o interfaces que puedan trabajar con diferentes tipos de datos de manera flexible y segura. En esencia, los genéricos te permiten parametrizar el tipo de datos que una función o estructura de datos puede manejar.
+
+Hay varias formas de usarlos:
+
+```
+    const [images, setImages] = useState<string[]>([]};
+```
+
+```
+    const [images, setImages] = useState<Array<string>>([]};
+```
+
+## Lección 7: State con tipos personalizados
+
+Con frecuencia, los datos que se reciben son objetos, en lugar de tipos primitivos y estos tambien se pueden tipar para usarlos dentro de los hooks.
+
+Esta sería una forma base, pero no se recomienda por lo poco semántica
+
+```
+const [images, setImages] = useState<Array<{id: string, url: string}>>([
+    {id: 'id1', url: `https://randomfox.ca/images/${random()}.jpg`},
+    {id: 'id2', url: `https://randomfox.ca/images/${random()}.jpg`},
+]);
+```
+
+La forma recomendada es crear un typo específico el parámetro o variable a recibir.
+
+```
+type ImageItem = array<{
+  id: string;
+  url: string;
+}>;
+
+export default function Home() {
+  const [images, setImages] = useState<ImageItem>([
+    { id: 'id1', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id2', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id3', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id4', url: `https://randomfox.ca/images/${random()}.jpg` },
+  ]);
+```
+
+Aplicando el principio de la mínima representacion
+
+```
+type ImageItem = {
+  id: string;
+  url: string;
+};
+
+export default function Home() {
+  const [images, setImages] = useState<ImageItem[]>([
+    { id: 'id1', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id2', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id3', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id4', url: `https://randomfox.ca/images/${random()}.jpg` },
+  ]);
+```
