@@ -135,9 +135,21 @@ type ImageItem = {
 
 export default function Home() {
   const [images, setImages] = useState<ImageItem[]>([
-    { id: 'id1', url: `https://randomfox.ca/images/${random()}.jpg` },
     { id: 'id2', url: `https://randomfox.ca/images/${random()}.jpg` },
+    { id: 'id1', url: `https://randomfox.ca/images/${random()}.jpg` },
     { id: 'id3', url: `https://randomfox.ca/images/${random()}.jpg` },
     { id: 'id4', url: `https://randomfox.ca/images/${random()}.jpg` },
   ]);
 ```
+
+## Lección 8: Tipos para eventos y callbacks de escuchadores
+
+Los objetos generados por los eventos y callbacks de escuchadores tambien tienen un tipado, generalmente definido por la libreria, ya sea React, Prime React o cualquier otra, la clave es aprender a encontrar los tipos correctos.
+El DOM también incluye sus propias librerias y tipos.
+
+### Tips valiosos
+
+- Al hacer hover sobre la propiedad que se quiere tipar, VS Code muestra el tipo correcto para esa prop
+- Al hacer Ctrl + click sobre la propiedad o el tipo a usar, VS Code nos lleva a la definición de los mismos y explorarlas es una excelente forma de aprender sobre las propiedades y los tipos.
+
+> Enlace a explicación sobre los tipos en TS: [Tipos de TypeScript](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/default_props)
