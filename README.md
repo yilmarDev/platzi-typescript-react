@@ -153,3 +153,121 @@ El DOM también incluye sus propias librerias y tipos.
 - Al hacer Ctrl + click sobre la propiedad o el tipo a usar, VS Code nos lleva a la definición de los mismos y explorarlas es una excelente forma de aprender sobre las propiedades y los tipos.
 
 > Enlace a explicación sobre los tipos en TS: [Tipos de TypeScript](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/default_props)
+
+## Lección 9: tipos parara referencias y observadores
+
+Para crear los observadores y controlar el flujo de la aplicación en base a sus eventos necesitamos obtener las referencias de los objetos a observar, y para esto react nos ofrece el hook `useRef()`. Esta es una demostración de su uso:
+
+```
+import React, { useRef, useState } from 'react';
+
+function DemoRefComponent() {
+  // Creamos una referencia usando useRef
+  const myInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Estado para almacenar el valor del input
+  const [inputValue, setInputValue] = useState<string>('');
+
+  // Función para manejar cambios en el input
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  // Función para enfocar el input cuando se hace clic en el botón
+  const focusInput = () => {
+    // Usamos la referencia para acceder al elemento del DOM
+    if (myInputRef.current) {
+      myInputRef.current.focus();
+    }
+  };
+
+  return (
+    <div>
+      <h1>Uso de useRef() con TypeScript</h1>
+      <input
+        type="text"
+        placeholder="Escribe algo..."
+        value={inputValue}
+        onChange={handleInputChange}
+        ref={myInputRef} // Asignamos la referencia al input
+      />
+      <button onClick={focusInput}>Enfocar Input</button>
+      <p>Valor del input: {inputValue}</p>
+    </div>
+  );
+}
+
+export default DemoRefComponent;
+
+```
+
+> Tip: para evitar problemas y fallas al usar `useRef()` debemos inicializar en `null` cada vez que se desconozca el valor o tipo inicial del elemento a referenciar. Tal como se ve en el siguiente ejemplo:
+
+```
+const myInputRef = useRef<HTMLInputElement | null>(null);
+```
+
+## Lección 10: Lazy loading con observadores
+
+Para implementar la carga peresoza o `lazy load` se puede utilizar IntersectionObserver.
+
+### IntersectionObserver
+
+Es una API de JavaScript que proporciona una forma eficiente de observar cambios en la intersección entre un elemento y su contenedor ancestral o el viewport del navegador.
+
+El IntersectionObserver trabaja observando cuándo un elemento objetivo (target) entra o sale del área visible del viewport o de su contenedor ancestral. Esto se logra mediante la creación de una instancia de IntersectionObserver y la definición de una función de devolución de llamada (callback) que se ejecuta cuando se producen estas intersecciones.
+
+```
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+        console.log('Hey ...');
+        setSrc(image);
+    }
+    });
+});
+```
+
+La implementación completa requiere de 3 pasos:
+
+- Crear el observador
+- Implementarlo
+- Limpiar o eliminar el observador cuando el componente se desmonte o vuelva renderizar
+
+```
+useEffect(() => {
+
+    // Creando el observador
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setSrc(image);
+        }
+      });
+    });
+
+    // Aplicando el observador
+    if (node.current) observer.observe(node.current);
+
+    // Retirando el obervador o limpiando
+    return () => {
+      observer.disconnect();
+    };
+}, [image]);
+```
+
+### operador de aserción no nula | non-null assertion operator | Bang
+
+Es una característica de TypeScript, que se utiliza para indicar al compilador que un valor no será null o undefined, incluso cuando el sistema de tipos podría sugerir lo contrario.
+
+Se implementa añadiendo el signo `!` a la expresión que podría ser `null` para el transpilador, pero no se recomienda usarle en su lugar se debería aplicar la validación de tipo para asegurar que se va a recibir un parámetr válido.
+
+```
+// Usando el operador de aserción no nula para indicar que cadena no es nula
+function obtenerLongitud(cadena: string | null): number {
+  return cadena!.length; // Si el signo ! esto alerta a TS
+}
+
+const resultado = obtenerLongitud("Hola, mundo!");
+
+```
