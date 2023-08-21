@@ -350,3 +350,25 @@ En el caso de lodash se pueden importar con el siguiente comando:
 ```
 npm install @types/lodash
 ```
+
+## Lección 15: Liberías y extensión del objeto windows
+
+Existen scripts como Google Analytics que se insertan dentro del HTML y de los cuales no tenemos control, pero deben ser tipados, en algunos casos podemos importar los tipos desde definitely Typed, pero en otros no.
+
+Cuando no se pueden importar hay que crearlos y para esto se extiende de `window`.
+
+### Creando un tipo para la función `plausible()` de Plausible analytics
+
+Para instalar Plausible basta con añadir un script dentro del HTML así que no se usa npm ni se importan librerias de tipos, por eso hay que extender de `Window` y crear un nuevo tipo, en el ejemplo se ve como se hace:
+
+```
+interface Window {
+  plausible: (event: 'add_fox' | 'remove_fox') => void;
+}
+```
+
+Hacer esto nos permite usar la función tipada como un elemento del objeto global `window`, facilitando mucho el trabajo propia y del equipo de trabajo.
+
+Es importante seguir las buenas prácticas, por eso se debe crear un archivo dentro de la libreria de tipos, como esta:
+
+> @types/plausible/index.d.ts
