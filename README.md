@@ -296,3 +296,14 @@ export const LazyImage = ({ image, ...imgProps }: props): JSX.Element => {
 ```
 
 Al hacer esto logramos crear un componente que está por encima del elemento del DOM, y aún así proporciona todas las props del elemento nativo del DOM.
+
+## Lección 13: Creando tipos propios para la aplicación
+
+Para crear tipos globales se debe crear un archivo en la raiz del sitio que termine en `d.ts` por ejemplo `app.d.ts` y guaradar allí los tipos que se quiera que sean globales.
+
+Por convensión, los tipo globales deben declararse con un `I` o `T` al principio, por ejemplo `TLazyImage`.
+
+### Tips para crear tipos globales
+
+> - Hacer global solo lo que sea global.
+> - Empezar con tipos locales y probar si realmente deberían convertirse en globales.

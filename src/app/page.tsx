@@ -6,16 +6,11 @@ import { LazyImage } from '@/components/LazyImage';
 const generateRandomNumber = () => Math.floor(Math.random() * 123 + 1);
 const generateId = () => new Date().getTime().toString();
 
-type ImageItem = {
-  id: string;
-  url: string;
-};
-
 export default function Home() {
-  const [images, setImages] = useState<ImageItem[]>([]);
+  const [images, setImages] = useState<IImageItem[]>([]);
 
   const addNewImage: MouseEventHandler<HTMLButtonElement> = (event) => {
-    const newImage: ImageItem = {
+    const newImage: IImageItem = {
       id: generateId(),
       url: `https://randomfox.ca/images/${generateRandomNumber()}.jpg`,
     };
