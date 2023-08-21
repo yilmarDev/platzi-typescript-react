@@ -271,3 +271,5 @@ function obtenerLongitud(cadena: string | null): number {
 const resultado = obtenerLongitud("Hola, mundo!");
 
 ```
+
+## Lección 11: Componentes que extienden elementos del DOM
