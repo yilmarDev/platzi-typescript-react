@@ -43,7 +43,7 @@ export default function Home() {
             Add fox
           </button>
 
-          {images.map(({ id, url }) => (
+          {images.map(({ id, url }, index) => (
             <div key={id} className="p-4">
               <LazyImage
                 src={url}
@@ -51,6 +51,9 @@ export default function Home() {
                 width={320}
                 height="auto"
                 onClick={() => console.log('Hola desde page')}
+                onLazyLoad={(img: HTMLImageElement) => {
+                  console.log(`Image #${index + 1} cargada. Nodo:`, img);
+                }}
               />
             </div>
           ))}
