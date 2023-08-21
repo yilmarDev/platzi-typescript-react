@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
+import type { ImgHTMLAttributes } from 'react';
 
-type props = {
-  image: string;
-  alt: string;
+type LazyImageProps = {
+  src: string;
 };
 
-export const LazyImage = ({ image, alt }: props): JSX.Element => {
-  const [src, setSrc] = useState(
+type imageNative = ImgHTMLAttributes<HTMLImageElement>;
+
+type props = LazyImageProps & imageNative;
+
+export const LazyImage = ({ src, ...imgProps }: props): JSX.Element => {
+  const [currentSrc, setCurrentSrc] = useState(
     'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4='
   );
 
@@ -16,7 +20,7 @@ export const LazyImage = ({ image, alt }: props): JSX.Element => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setSrc(image);
+          setCurrentSrc(src);
         }
       });
     });
@@ -26,17 +30,15 @@ export const LazyImage = ({ image, alt }: props): JSX.Element => {
     return () => {
       observer.disconnect();
     };
-  }, [image]);
+  }, [src]);
 
   return (
     <>
       <img
         ref={node}
-        width={320}
-        height="auto"
-        alt={alt}
-        src={src}
+        src={currentSrc}
         className="rounded bg-gray-300"
+        {...imgProps}
       />
     </>
   );

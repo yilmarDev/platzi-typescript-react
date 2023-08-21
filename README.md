@@ -273,3 +273,26 @@ const resultado = obtenerLongitud("Hola, mundo!");
 ```
 
 ## Lección 11: Componentes que extienden elementos del DOM
+
+Cuando se crean componentes propios que envuelven elementos del DOM como imagenes, listas o títulos, es posible que sea necesario usar las props que incluye el elemento original, pero la envoltura generada de nuestro componente no lo permite.
+
+Para solucionar esto podemos heredar del elemento original y pasarlos como propios del componente.
+
+```
+type LazyImageProps = {
+  image: string;
+  alt: string;
+};
+
+type imageNative = ImgHTMLAttributes<HTMLImageElement>;
+
+type props = LazyImageProps & imageNative;
+
+export const LazyImage = ({ image, ...imgProps }: props): JSX.Element => {
+  // Código del componente
+
+  return (<></>);
+}
+```
+
+Al hacer esto logramos crear un componente que está por encima del elemento del DOM, y aún así proporciona todas las props del elemento nativo del DOM.
