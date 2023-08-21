@@ -297,6 +297,16 @@ export const LazyImage = ({ image, ...imgProps }: props): JSX.Element => {
 
 Al hacer esto logramos crear un componente que está por encima del elemento del DOM, y aún así proporciona todas las props del elemento nativo del DOM.
 
+## Lección 12: Reto
+
+Añadir una prop `onLaziLoad` que ejecute un callback al comoponente que renderiza la imagen, el objetivo es que quien lo use pueda ejecutar el callback, justo cuando la imagen se haya cargado.
+
+Hay que asegurarse de que esta función solo se ejecute una vez y que sea en el momento en que la imagen se carga.
+
+[Solución del tutor Parte 1](https://github.com/jonalvarezz/platzi-react-typescript/commit/1d7d30afe0b8516ec6086fac64c4ed41bc8aa190)
+
+[Solución del tutor Parte 2](https://github.com/jonalvarezz/platzi-react-typescript/commit/0f15e584ad53586505883500780a3614276eb4e9)
+
 ## Lección 13: Creando tipos propios para la aplicación
 
 Para crear tipos globales se debe crear un archivo en la raiz del sitio que termine en `d.ts` por ejemplo `app.d.ts` y guaradar allí los tipos que se quiera que sean globales.
@@ -307,3 +317,36 @@ Por convensión, los tipo globales deben declararse con un `I` o `T` al principi
 
 > - Hacer global solo lo que sea global.
 > - Empezar con tipos locales y probar si realmente deberían convertirse en globales.
+
+## Lección 14: Trabajando con librerias no tipadas
+
+En el 90% de los casos las librerias son compatibles con TS y del 10% restante existen tipos creados por la comunidad, solo en casos extremos con librerías muy antiguas tendremos que construir tipos propios para las librerias.
+
+En el caso de que nos encontremos con librerias que no cuentan con tipos para TS, tenemos 2 opciones: importarlos desde un paquete externo que alguien de la comunidad haya creado o revisar el funcionamiento de la librería y crear los tipos que necesitemos.
+
+### Creando tipos propios
+
+Para esto hay que crear una libreria propia dentro del proyecto `@types` y dentro de ella una carpeta para cada libreria a tipar `lodash` y por último los documentos que van a contener los tipos `index.d.ts`:
+
+> @types/lodash/index.d.ts
+> Para crear los typos existe una sintaxis precisa, donde el nombre de la librería debe ser exactamente el mismo con el que se importó:
+
+```
+declare module 'lodash' { // Declarando la libreria a tipar
+  export function random(lower: number, upper: number): number; // Creando el tipo para la función random
+}
+```
+
+La estructura de los tipos depende directamente del funcionamiento de la función o prop a tipar.
+
+### Importando los tipos y usando Definitely typed
+
+Existe una librerias llamada `Definitely typed` donde la comunidad de JS mantiene los tipos para librerias populares que nos cuentan con los tipos.
+
+> [Link a Definitely Type en Github](https://github.com/DefinitelyTyped/DefinitelyTyped)
+
+En el caso de lodash se pueden importar con el siguiente comando:
+
+```
+npm install @types/lodash
+```

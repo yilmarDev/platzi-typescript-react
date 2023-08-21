@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
+import { random } from 'lodash';
 import type { MouseEventHandler } from 'react';
 import { LazyImage } from '@/components/LazyImage';
 
-const generateRandomNumber = () => Math.floor(Math.random() * 123 + 1);
-const generateId = () => new Date().getTime().toString();
+const generateRandomNumber = () => random(1, 123);
+const generateId = () => random(1, 2000).toString();
 
 export default function Home() {
   const [images, setImages] = useState<IImageItem[]>([]);
